@@ -90,4 +90,4 @@ RUN rm -f /etc/nginx/sites-enabled/default && \
 
 # Expose Ports
 ENV LISTEN_PORT=8080
-ENTRYPOINT ["/bin/bash", "/cmd.sh"]
+ENTRYPOINT ["/cmd.sh"]
