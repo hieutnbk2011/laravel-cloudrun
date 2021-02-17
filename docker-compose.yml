@@ -1,0 +1,49 @@
+version: '3.3'
+services:
+  web:
+    container_name: laravel_web
+    build: .
+    restart: always
+    volumes:
+      - .env:/var/www/.env
+    ports:
+      - 8080:8080
+  db:
+    container_name: laravel_db
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'laravel_db'
+      # So you don't have to use root, but you can if you like
+      MYSQL_USER: 'root'
+      # You can use whatever password you like
+      MYSQL_PASSWORD: '123456'
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: '123456'
+    volumes:
+      - laravel-db:/var/lib/mysql
+  redis:
+    image: redis
+    container_name: laravel_redis
+    command: redis-server --requirepass 123456
+  es01:
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.6.4
+    container_name: laravel_es
+    environment:
+      - node.name=lavarel
+      - cluster.name=lavarel
+      - xpack.security.enabled=false
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - laravel-es:/usr/share/elasticsearch/data
+volumes:
+  laravel-es:
+    driver: local
+  laravel-db:
+    driver: local
+ 
