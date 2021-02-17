@@ -1,6 +1,12 @@
-### Dockerfile for Google Cloud Run ###
+### Dockerfile for Google Cloud Run
 Laravel code should be put into www folder.
 I already enabled a lot of useful php-extension, but if missing one, you can add to Dockerfile.
+## Migrate command:
+You can uncomment following command in config/cmd.sh, if you want the container to always try migrate database before start.
+```bash
+cd /var/www
+runuser -u www-data -- php artisan migrate --force --no-interaction
+```
 ## local test
 You can use docker-compose to run the local deployment.
 ```bash
