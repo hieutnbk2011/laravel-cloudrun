@@ -1,5 +1,6 @@
 ### Dockerfile for Google Cloud Run ###
 Laravel code should be put into www folder.
+I already enabled a lot of useful php-extension, but if missing one, you can add to Dockerfile.
 ## local test
 You can use docker-compose to run the local deployment.
 ```bash
